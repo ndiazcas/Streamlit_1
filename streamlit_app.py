@@ -34,26 +34,18 @@ st.write("### (3) show a line chart of sales for the selected items in (2)")
 st.write("### (4) show three metrics (https://docs.streamlit.io/library/api-reference/data/st.metric) for the selected items in (2): total sales, total profit, and overall profit margin (%)")
 st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
 
-option = st.selectbox(
-   "Which Category would you like to see?",
-   (df['Category'].unique()),
-   index=None,
-   placeholder="Select category...",
-)
+
+# Create a dropdown for selecting a category
+option = st.selectbox('Select a category:', df1['Category'].unique(), placeholder="Select category...")
 st.write('You selected:', option)
 
-if option == 'Furniture':
-   df_f = df[df['Category'] == 'Furniture']
-   options = st.multiselect('Select Sub-Categories:', df_f['Sub_Category'].unique(), placeholder = "Select sub-category...")
-elif option == 'Office Supplies':
-   df_o = df[df['Category'] == 'Office Supplies']
-   options = st.multiselect('Select Sub-Categories:', df_o['Sub_Category'].unique(), placeholder = "Select sub-category...")
-elif option == 'Technology':
-   df_t = df[df['Category'] == 'Technology']
-   options = st.multiselect('Select Sub-Categories:', df_t['Sub_Category'].unique(), placeholder = "Select sub-category...")
-else:
-   options = st.multiselect('Select Sub-Categories:', df['Sub_Category'].unique(), placeholder = "Select sub-category...")
+# Filter df1 based on the selected category
+filtered_df = df1[df1['Category'] == option]
 
-st.write('You selected:', options)
+# Create a multiselect for selecting data based on the selected category
+options = st.multiselect('Select data:', filtered_df['Sub_Category'])
+
+# Display the selected data
+st.write('Selected data:', options)
 
 
