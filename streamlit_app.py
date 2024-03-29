@@ -51,6 +51,8 @@ elif option == 'Office Supplies':
 elif option == 'Technology':
    df_t = df[df['Category'] == 'Technology']
    options = st.multiselect('Select Sub-Categories:', df_t['Sub_Category'].unique(), placeholder = "Select sub-category...")
+else:
+   options = st.multiselect('Select Sub-Categories:', placeholder = "Select sub-category...")
 
 st.write('You selected:', options)
 
