@@ -41,3 +41,17 @@ option = st.selectbox(
    placeholder="Select category...",
 )
 st.write('You selected:', option)
+
+if option == 'Furniture':
+   df_f = df[df['Category'] == 'Furniture']
+   options = st.multiselect('Select Sub-Categories:', df_f['Sub_Category'].unique(), placeholder = "Select sub-category...")
+elif option == 'Office Supplies':
+   df_o = df[df['Category'] == 'Office Supplies']
+   options = st.multiselect('Select Sub-Categories:', df_o['Sub_Category'].unique(), placeholder = "Select sub-category...")
+elif option == 'Technology':
+   df_t = df[df['Category'] == 'Technology']
+   options = st.multiselect('Select Sub-Categories:', df_t['Sub_Category'].unique(), placeholder = "Select sub-category...")
+
+st.write('You selected:', options)
+
+
