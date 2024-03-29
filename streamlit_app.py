@@ -36,11 +36,11 @@ st.write("### (5) use the delta option in the overall profit margin metric to sh
 
 
 # Create a dropdown for selecting a category
-option = st.selectbox('Select a category:', df1['Category'].unique(), placeholder="Select category...")
+option = st.selectbox('Select a category:', df['Category'].unique(), placeholder="Select category...")
 st.write('You selected:', option)
 
 # Filter df1 based on the selected category
-filtered_df = df1[df1['Category'] == option]
+filtered_df = df[df['Category'] == option]
 
 # Create a multiselect for selecting data based on the selected category
 options = st.multiselect('Select data:', filtered_df['Sub_Category'])
