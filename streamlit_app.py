@@ -63,12 +63,6 @@ st.dataframe(aggregated_data)
 # Plot the line chart
 if not aggregated_data.empty:
     st.write('Line chart for selected Category and Sub_Categories:')
-    plt.figure(figsize=(10, 6))
-    plt.plot(aggregated_data.index.astype(str), aggregated_data.values, marker='o')
-    plt.xlabel('Month')
-    plt.ylabel('Sales')
-    plt.title('Sales Over Months for Selected Sub_Categories')
-    plt.xticks(rotation=45)
-    st.pyplot()
+    st.line_chart(aggregated_data, y="Sales")
 else:
     st.write('No data available for the selected category and sub_categories.')
