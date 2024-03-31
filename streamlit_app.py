@@ -42,8 +42,10 @@ st.write('You selected:', option)
 # Filter df based on the selected category
 if option == 'All':
     filtered_df = df
+    st.dataframe(filtered_df)
 else:
     filtered_df = df[df['Category'] == option]
+    st.dataframe(filtered_df)
 
 # Get unique sub-categories
 unique_subcategories = filtered_df['Sub_Category'].unique().tolist()
