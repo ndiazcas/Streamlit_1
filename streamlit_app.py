@@ -52,6 +52,7 @@ st.write('Selected data:', options)
 # If selected_data is not empty, filter data based on selected_data
 if options:
     filtered_df = filtered_df[filtered_df['Sub_Category'].isin(options)]
+    st.dataframe(filtered_df)
 
 # Aggregate sales data by month
 filtered_df['Order_Data'] = pd.to_datetime(filtered_df["Order_Date"])
