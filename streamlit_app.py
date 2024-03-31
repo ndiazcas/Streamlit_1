@@ -60,9 +60,9 @@ st.write('Selected data:', options)
 
 # Show a line chart of sales for the selected items in selected_category and options
 if options == 'All':
-   filtered_aggregated_data = filtered_df.filter(items=['Sales', 'Order_Date']).groupby(pd.Grouper(key='Order_Date', freq='M')).sum()
+   filtered_aggregated_data = filtered_df.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 else:
-   filtered_aggregated_data = filtered_df[filtered_df['Sub_Category'].isin(options)].filter(items=['Sales', 'Order_Date']).groupby(pd.Grouper(key='Order_Date', freq='M')).sum()
+   filtered_aggregated_data = filtered_df[filtered_df['Sub_Category'].isin(options)].filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
    st.dataframe(filtered_aggregated_data)
 
 # Plot the line chart
