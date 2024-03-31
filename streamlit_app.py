@@ -39,7 +39,7 @@ st.write("### (5) use the delta option in the overall profit margin metric to sh
 option = st.selectbox('Select a category:', df['Category'].unique(), placeholder="Select category...")
 st.write('You selected:', option)
 
-# Filter df1 based on the selected category
+# Filter df based on the selected category
 filtered_df = df[df['Category'] == option]
 
 # Create a multiselect for selecting data based on the selected category
@@ -48,4 +48,24 @@ options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique())
 # Display the selected data
 st.write('Selected data:', options)
 
+# Show a line chart of sales for the selected items in option and options
+# If selected_data is not empty, filter data based on selected_data
+if options:
+    filtered_df = filtered_df[filtered_df['Sub_Category'].isin(options)]
 
+# Aggregate sales data by month
+filtered_df['Month'] = filtered_df['Date'].dt.to_period('M')
+aggregated_data = filtered_df.groupby('Month')['Sales'].sum()
+
+# Plot the line chart
+if not aggregated_data.empty:
+    st.write('Line chart for selected Category and Sub_Categories:')
+    plt.figure(figsize=(10, 6))
+    plt.plot(aggregated_data.index.astype(str), aggregated_data.values, marker='o')
+    plt.xlabel('Month')
+    plt.ylabel('Sales')
+    plt.title('Sales Over Months for Selected Sub_Categories')
+    plt.xticks(rotation=45)
+    st.pyplot()
+else:
+    st.write('No data available for the selected category and sub_categories.')
