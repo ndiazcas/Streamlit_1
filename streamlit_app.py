@@ -55,7 +55,7 @@ if options:
     st.dataframe(filtered_df)
 
 # Aggregate sales data by month
-filtered_df['Order_Data'] = pd.to_datetime(filtered_df["Order_Date"])
+filtered_df['Order_Date'] = pd.to_datetime(filtered_df["Order_Date"])
 filtered_df.set_index('Order_Date', inplace=True)
 aggregated_data = filtered_df.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 st.dataframe(aggregated_data)
