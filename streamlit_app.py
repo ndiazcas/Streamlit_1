@@ -52,18 +52,30 @@ options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique())
 
 # Show a line chart of sales for the selected items in selected_category and options
 filtered_aggregated_subcat = filtered_df[filtered_df['Sub_Category'].isin(options)]
+total_sales_subcat = filtered_aggregated_subcat.filter(items=['Sales']).sum()
+total_profit_subcat = filtered_aggregated_subcat.filter(items=['Profit']).sum()
+profit_margin_subcat = (total_profit_subcat / total_sales_subcat) * 100
 filtered_aggregated_cat = filtered_df
+total_sales_cat = filtered_aggregated_cat.filter(items=['Sales']).sum()
+total_profit_cat = filtered_aggregated_cat.filter(items=['Profit']).sum()
+profit_margin_cat = (total_profit_cat / total_sales_cat) * 100
 filtered_aggregated_data = filtered_aggregated_subcat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 filtered_aggregated_data_onlycat = filtered_aggregated_cat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 
-# Plot the line chart
+# Plot the line chart and show metrics for the selections
+col1, col2, col3 = st.columns(3)
+
 if not filtered_aggregated_data.empty:
    st.dataframe(filtered_aggregated_data)
    st.write('Line chart for selected Category and Sub_Categories:')
    st.line_chart(filtered_aggregated_data)
+   col1.metric("Total Sales ($)", total_sales_subcat)
+   col2.metric("Total Profit ($)", total_profit_subcat)
+   col3.metric("Overall Profit Margin (%)", profit_margin_subcat)
 else:
    st.dataframe(filtered_aggregated_data_onlycat)
    st.write('Line chart for selected Category and All Sub_Categories:')
    st.line_chart(filtered_aggregated_data_onlycat)
-
-# Total Sales, Total Profit and Overall Profit Margin (%) for the selections
+   col1.metric("Total Sales ($)", total_sales_cat)
+   col2.metric("Total Profit ($)", total_profit_cat)
+   col3.metric("Overall Profit Margin (%)", profit_margin_cat)
