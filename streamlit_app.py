@@ -50,9 +50,6 @@ else:
 # Create a multiselect for selecting data based on the selected category
 options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique())
 
-# Display the selected data
-st.write('Selected data:', options)
-
 # Show a line chart of sales for the selected items in selected_category and options
 filtered_aggregated_data = filtered_df[filtered_df['Sub_Category'].isin(options)].filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 filtered_aggregated_data_onlycat = filtered_df.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
