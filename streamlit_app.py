@@ -36,31 +36,32 @@ st.write("### (5) use the delta option in the overall profit margin metric to sh
 
 
 # Create a dropdown for selecting a category
-option = st.selectbox('Select a category:', df['Category'].unique(), placeholder="Select category...")
+option = st.selectbox('Select a category:', ['All'] + df['Category'].unique().tolist(), index=0)
 st.write('You selected:', option)
 
 # Filter df based on the selected category
-filtered_df = df[df['Category'] == option]
+if option == 'All':
+    filtered_df = df
+else:
+    filtered_df = df[df['Category'] == option]
 
 # Create a multiselect for selecting data based on the selected category
-options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique())
+options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique(), ['All'])
 
 # Display the selected data
 st.write('Selected data:', options)
 
-# Show a line chart of sales for the selected items in option and options
-# If selected_data is not empty, filter data based on selected_data
-if options:
-    filtered_df = filtered_df[filtered_df['Sub_Category'].isin(options)]
-    st.dataframe(filtered_df)
-
-# Aggregate sales data by month
-aggregated_data = filtered_df.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
-st.dataframe(aggregated_data)
+# Show a line chart of sales for the selected items in selected_category and options
+# If 'All' is selected in options, consider all data
+if 'All' in options:
+    filtered_aggregated_data = filtered_df.filter(items=['Sales', 'Order_Date']).groupby(pd.Grouper(key='Order_Date', freq='M')).sum()
+else:
+    filtered_aggregated_data = filtered_df[filtered_df['Sub_Category'].isin(options)].filter(items=['Sales', 'Order_Date']).groupby(pd.Grouper(key='Order_Date', freq='M')).sum()
+    st.dataframe(filtered_aggregated_data)
 
 # Plot the line chart
-if not aggregated_data.empty:
+if not filtered_aggregated_data.empty:
     st.write('Line chart for selected Category and Sub_Categories:')
-    st.line_chart(aggregated_data, y="Sales")
+    st.line_chart(filtered_aggregated_data)
 else:
     st.write('No data available for the selected category and sub_categories.')
