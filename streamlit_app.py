@@ -57,6 +57,7 @@ if options:
 filtered_df['Order_Data'] = pd.to_datetime(filtered_df["Order_Date"])
 filtered_df.set_index('Order_Date', inplace=True)
 aggregated_data = filtered_df.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
+st.dataframe(aggregated_data)
 
 # Plot the line chart
 if not aggregated_data.empty:
