@@ -45,8 +45,15 @@ if option == 'All':
 else:
     filtered_df = df[df['Category'] == option]
 
+# Get unique sub-categories
+unique_subcategories = filtered_df['Sub_Category'].unique().tolist()
+
+# Add 'All' option to the list
+unique_subcategories.insert(0, 'All')
+
+# Create multiselect with 'All' as default value
 # Create a multiselect for selecting data based on the selected category
-options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique(), ['All'])
+options = st.multiselect('Select data:', unique_subcategories, default=['All'])
 
 # Display the selected data
 st.write('Selected data:', options)
