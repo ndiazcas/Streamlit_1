@@ -67,4 +67,3 @@ else:
    st.line_chart(filtered_aggregated_data_onlycat)
 
 # Total Sales, Total Profit and Overall Profit Margin (%) for the selections
-if not
