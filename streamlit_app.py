@@ -51,10 +51,10 @@ else:
 options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique())
 
 # Show a line chart of sales for the selected items in selected_category and options
-filtered_aggregated_cat = filtered_df[filtered_df['Sub_Category'].isin(options)]
-filtered_aggregated_subcat = filtered_df
-filtered_aggregated_data = filtered_aggregated_cat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
-filtered_aggregated_data_onlycat = filtered_aggregated_subcat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
+filtered_aggregated_subcat = filtered_df[filtered_df['Sub_Category'].isin(options)]
+filtered_aggregated_cat = filtered_df
+filtered_aggregated_data = filtered_aggregated_subcat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
+filtered_aggregated_data_onlycat = filtered_aggregated_cat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 
 # Plot the line chart
 if not filtered_aggregated_data.empty:
@@ -65,3 +65,6 @@ else:
    st.dataframe(filtered_aggregated_data_onlycat)
    st.write('Line chart for selected Category and All Sub_Categories:')
    st.line_chart(filtered_aggregated_data_onlycat)
+
+# Total Sales, Total Profit and Overall Profit Margin (%) for the selections
+if not
