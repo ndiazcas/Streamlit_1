@@ -54,8 +54,9 @@ if options:
     filtered_df = filtered_df[filtered_df['Sub_Category'].isin(options)]
 
 # Aggregate sales data by month
-filtered_df['Month'] = filtered_df['Date'].dt.to_period('M')
-aggregated_data = filtered_df.groupby('Month')['Sales'].sum()
+filtered_df['Order_Data'] = pd.to_datetime(filtered_df["Order_Date"])
+filtered_df.set_index('Order_Date', inplace=True)
+aggregated_data = filtered_df.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 
 # Plot the line chart
 if not aggregated_data.empty:
