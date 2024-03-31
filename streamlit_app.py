@@ -56,12 +56,13 @@ st.write('Selected data:', options)
 # Show a line chart of sales for the selected items in selected_category and options
 filtered_aggregated_data = filtered_df[filtered_df['Sub_Category'].isin(options)].filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 filtered_aggregated_data_onlycat = filtered_df.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
-st.dataframe(filtered_aggregated_data)
 
 # Plot the line chart
 if not filtered_aggregated_data.empty:
-    st.write('Line chart for selected Category and Sub_Categories:')
-    st.line_chart(filtered_aggregated_data)
+   st.dataframe(filtered_aggregated_data)
+   st.write('Line chart for selected Category and Sub_Categories:')
+   st.line_chart(filtered_aggregated_data)
 else:
-    st.write('Line chart for selected Category and All Sub_Categories:')
-    st.line_chart(filtered_aggregated_data_onlycat)
+   st.dataframe(filtered_aggregated_data_onlycat)
+   st.write('Line chart for selected Category and All Sub_Categories:')
+   st.line_chart(filtered_aggregated_data_onlycat)
