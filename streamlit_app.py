@@ -55,12 +55,11 @@ filtered_aggregated_subcat = filtered_df[filtered_df['Sub_Category'].isin(option
 total_sales_subcat = filtered_aggregated_subcat.filter(items=['Sales']).sum()
 total_profit_subcat = filtered_aggregated_subcat.filter(items=['Profit']).sum()
 profit_margin_subcat = (total_profit_subcat / total_sales_subcat) * 100
-st.write('the percentage is', profit_margin_subcat)
 
 filtered_aggregated_cat = filtered_df
 total_sales_cat = filtered_aggregated_cat.filter(items=['Sales']).sum()
 total_profit_cat = filtered_aggregated_cat.filter(items=['Profit']).sum()
-profit_margin_cat = (total_profit_subcat / total_sales_subcat) * 100
+profit_margin_cat = (total_profit_cat / total_sales_cat) * 100
 
 filtered_aggregated_data = filtered_aggregated_subcat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 filtered_aggregated_data_onlycat = filtered_aggregated_cat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
