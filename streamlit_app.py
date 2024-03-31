@@ -46,14 +46,17 @@ else:
     filtered_df = df[df['Category'] == option]
 
 # Create a multiselect for selecting data based on the selected category
-options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique())
+options = st.multiselect('Select data:', ['All'] + filtered_df['Sub_Category'].unique().tolist(), index=0)
 
 # Display the selected data
 st.write('Selected data:', options)
 
 # Show a line chart of sales for the selected items in selected_category and options
-filtered_aggregated_data = filtered_df[filtered_df['Sub_Category'].isin(options)].filter(items=['Sales', 'Order_Date']).groupby(pd.Grouper(key='Order_Date', freq='M')).sum()
-st.dataframe(filtered_aggregated_data)
+if options == 'All':
+   filtered_aggregated_data = filtered_df.filter(items=['Sales', 'Order_Date']).groupby(pd.Grouper(key='Order_Date', freq='M')).sum()
+else:
+   filtered_aggregated_data = filtered_df[filtered_df['Sub_Category'].isin(options)].filter(items=['Sales', 'Order_Date']).groupby(pd.Grouper(key='Order_Date', freq='M')).sum()
+   st.dataframe(filtered_aggregated_data)
 
 # Plot the line chart
 if not filtered_aggregated_data.empty:
