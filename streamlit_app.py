@@ -59,7 +59,7 @@ total_sales_subcat = filtered_aggregated_subcat.filter(items=['Sales']).sum()
 total_profit_subcat = filtered_aggregated_subcat.filter(items=['Profit']).sum()
 
 # Calculate profit margin
-if total_sales_subcat != 0:  # To avoid division by zero
+if int(total_sales_subcat) != 0:  # To avoid division by zero
     profit_margin_subcat = (int(total_profit_subcat) / int(total_sales_subcat)) * 100
 else:
     profit_margin_subcat = 0  # Or any other default value
@@ -69,7 +69,7 @@ total_sales_cat = filtered_aggregated_cat.filter(items=['Sales']).sum()
 total_profit_cat = filtered_aggregated_cat.filter(items=['Profit']).sum()
 
 # Calculate profit margin
-if total_sales_cat != 0:  # To avoid division by zero
+if int(total_sales_cat) != 0:  # To avoid division by zero
    profit_margin_cat = (int(total_profit_cat) / int(total_sales_cat)) * 100
 else:
     profit_margin_cat = 0  # Or any other default value
