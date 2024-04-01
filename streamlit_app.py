@@ -57,12 +57,22 @@ options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique())
 filtered_aggregated_subcat = filtered_df[filtered_df['Sub_Category'].isin(options)]
 total_sales_subcat = filtered_aggregated_subcat.filter(items=['Sales']).sum()
 total_profit_subcat = filtered_aggregated_subcat.filter(items=['Profit']).sum()
-profit_margin_subcat = (int(total_profit_subcat) / int(total_sales_subcat)) * 100
+
+# Calculate profit margin
+if total_sales_subcat != 0:  # To avoid division by zero
+    profit_margin_subcat = (int(total_profit_subcat) / int(total_sales_subcat)) * 100
+else:
+    profit_margin_subcat = 0  # Or any other default value
 
 filtered_aggregated_cat = filtered_df
 total_sales_cat = filtered_aggregated_cat.filter(items=['Sales']).sum()
 total_profit_cat = filtered_aggregated_cat.filter(items=['Profit']).sum()
-profit_margin_cat = (int(total_profit_cat) / int(total_sales_cat)) * 100
+
+# Calculate profit margin
+if total_sales_cat != 0:  # To avoid division by zero
+   profit_margin_cat = (int(total_profit_cat) / int(total_sales_cat)) * 100
+else:
+    profit_margin_cat = 0  # Or any other default value
 
 filtered_aggregated_data = filtered_aggregated_subcat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 filtered_aggregated_data_onlycat = filtered_aggregated_cat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
