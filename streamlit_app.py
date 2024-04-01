@@ -51,7 +51,8 @@ else:
 options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique())
 
 # Calculate the overall average profit margin across all products and categories
-
+filtered_df['Profit Margin'] = (filtered_df['Profit'] / filtered_df['Sales']) * 100
+overall_avg_profit_margin = filtered_df.groupby(['Category', 'Sub_Category'])['Profit Margin'].mean().mean()
 
 # Show a line chart of sales for the selected items in selected_category and options
 filtered_aggregated_subcat = filtered_df[filtered_df['Sub_Category'].isin(options)]
@@ -86,11 +87,11 @@ if not filtered_aggregated_data.empty:
    st.line_chart(filtered_aggregated_data)
    col1.metric("Total Sales ($)", round(total_sales_subcat, 1))
    col2.metric("Total Profit ($)", round(total_profit_subcat, 1))
-   col3.metric("Overall Profit Margin (%)", round(profit_margin_subcat, 1))
+   col3.metric("Overall Profit Margin (%)", round(profit_margin_subcat, 1), delta = overall_avg_profit_margin)
 else:
    st.dataframe(filtered_aggregated_data_onlycat)
    st.write('Line chart for selected Category and All Sub_Categories:')
    st.line_chart(filtered_aggregated_data_onlycat)
    col1.metric("Total Sales ($)", round(total_sales_cat, 1))
    col2.metric("Total Profit ($)", round(total_profit_cat, 1))
-   col3.metric("Overall Profit Margin (%)", round(profit_margin_cat, 1))
+   col3.metric("Overall Profit Margin (%)", round(profit_margin_cat, 1), delta = overall_avg_profit_margin)
