@@ -70,7 +70,7 @@ filtered_aggregated_data_onlycat = filtered_aggregated_cat.filter(items=['Sales'
 # Plot the line chart and show metrics for the selections
 col1, col2, col3 = st.columns(3)
 
-if not options.empty:
+if not filtered_aggregated_data.empty:
    st.dataframe(filtered_aggregated_data)
    st.write('Line chart for selected Category and Sub_Categories:')
    st.line_chart(filtered_aggregated_data)
