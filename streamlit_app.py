@@ -51,9 +51,11 @@ else:
 options = st.multiselect('Select data:', filtered_df['Sub_Category'].unique())
 
 # Calculate the overall average profit margin across all products and categories
-filtered_df['Profit Margin'] = (filtered_df['Profit'] / filtered_df['Sales']) * 100
-overall_avg_profit_margin = filtered_df.groupby(['Sub_Category'])['Profit Margin'].mean().mean()
-
+# filtered_df['Profit Margin'] = (filtered_df['Profit'] / filtered_df['Sales']) * 100
+# overall_avg_profit_margin = filtered_df.groupby(['Sub_Category'])['Profit Margin'].mean().mean()
+total_sales = filtered_df['Sales'].sum()
+total_profit = filtered_df['Profit'].sum()
+overall_avg_profit_margin = (int(total_profit) / int(total_sales)) * 100
 
 # Show a line chart of sales for the selected items in selected_category and options
 filtered_aggregated_subcat = filtered_df[filtered_df['Sub_Category'].isin(options)]
