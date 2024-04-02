@@ -68,7 +68,7 @@ total_profit_subcat = filtered_aggregated_subcat.filter(items=['Profit']).sum()
 # Calculate profit margin
 if int(total_sales_subcat) != 0:  # To avoid division by zero
     profit_margin_subcat = (int(total_profit_subcat) / int(total_sales_subcat)) * 100
-    delta_subcat = int(profit_margin_subcat) - int(overall_avg_profit_margin)
+    delta_subcat = profit_margin_subcat - overall_avg_profit_margin
     st.write(delta_subcat)
 else:
     profit_margin_subcat = 0  # Or any other default value
