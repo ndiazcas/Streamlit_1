@@ -69,7 +69,6 @@ total_profit_subcat = filtered_aggregated_subcat.filter(items=['Profit']).sum()
 if int(total_sales_subcat) != 0:  # To avoid division by zero
     profit_margin_subcat = (int(total_profit_subcat) / int(total_sales_subcat)) * 100
     delta_subcat = profit_margin_subcat - overall_avg_profit_margin
-    st.write(delta_subcat)
 else:
     profit_margin_subcat = 0  # Or any other default value
 
@@ -80,7 +79,7 @@ total_profit_cat = filtered_aggregated_cat.filter(items=['Profit']).sum()
 # Calculate profit margin
 if int(total_sales_cat) != 0:  # To avoid division by zero
    profit_margin_cat = (int(total_profit_cat) / int(total_sales_cat)) * 100
-   delta_cat = int(profit_margin_cat) - int(overall_avg_profit_margin)
+   delta_cat = profit_margin_cat - overall_avg_profit_margin
 else:
     profit_margin_cat = 0  # Or any other default value
 
@@ -88,19 +87,19 @@ filtered_aggregated_data = filtered_aggregated_subcat.filter(items=['Sales']).gr
 filtered_aggregated_data_onlycat = filtered_aggregated_cat.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 
 # Plot the line chart and show metrics for the selections
-col1, col2, col3 = st.columns(3)
+# col1, col2, col3 = st.columns(3)
 
 if not filtered_aggregated_data.empty:
    st.dataframe(filtered_aggregated_data)
    st.write('Line chart for selected Category and Sub_Categories:')
    st.line_chart(filtered_aggregated_data)
-   col1.metric("Total Sales per Selection ($)", round(total_sales_subcat, 2))
-   col2.metric("Total Profit per Selection ($)", round(total_profit_subcat, 2))
-   col3.metric("Profit Margin per Selection (%) / Difference with Overall Profit Margin", round(profit_margin_subcat, 2), delta = delta_subcat)
+   st.metric("Total Sales per Selection ($)", round(total_sales_subcat, 2))
+   st.metric("Total Profit per Selection ($)", round(total_profit_subcat, 2))
+   st.metric("Profit Margin per Selection (%) / Difference with Overall Profit Margin", round(profit_margin_subcat, 2), delta = round(delta_subcat,2))
 else:
    st.dataframe(filtered_aggregated_data_onlycat)
    st.write('Line chart for selected Category and All Sub_Categories:')
    st.line_chart(filtered_aggregated_data_onlycat)
-   col1.metric("Total Sales per Selection ($)", round(total_sales_cat, 2))
-   col2.metric("Total Profit per Selection ($)", round(total_profit_cat, 2))
-   col3.metric("Profit Margin per Selection (%) / Difference with Overall Profit Margin", round(profit_margin_cat, 2), delta = delta_cat)
+   st.metric("Total Sales per Selection ($)", round(total_sales_cat, 2))
+   st.metric("Total Profit per Selection ($)", round(total_profit_cat, 2))
+   st.metric("Profit Margin per Selection (%) / Difference with Overall Profit Margin", round(profit_margin_cat, 2), delta = round(delta_cat, 2))
