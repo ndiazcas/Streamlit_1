@@ -88,7 +88,7 @@ filtered_aggregated_data_onlycat = filtered_aggregated_cat.filter(items=['Sales'
 
 # Plot the line chart and show metrics for the selections
 col1, col2 = st.columns(2)
-col3 = st.column(1)
+col3 = st.column(2)
 
 if not filtered_aggregated_data.empty:
    st.dataframe(filtered_aggregated_data)
