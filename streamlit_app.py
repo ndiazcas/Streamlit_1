@@ -65,6 +65,7 @@ total_profit_subcat = filtered_aggregated_subcat.filter(items=['Profit']).sum()
 # Calculate profit margin
 if int(total_sales_subcat) != 0:  # To avoid division by zero
     profit_margin_subcat = (int(total_profit_subcat) / int(total_sales_subcat)) * 100
+    delta_subcat = int(profit_margin_subcat) - int(overall_avg_profit_margin)
 else:
     profit_margin_subcat = 0  # Or any other default value
 
@@ -75,6 +76,7 @@ total_profit_cat = filtered_aggregated_cat.filter(items=['Profit']).sum()
 # Calculate profit margin
 if int(total_sales_cat) != 0:  # To avoid division by zero
    profit_margin_cat = (int(total_profit_cat) / int(total_sales_cat)) * 100
+   delta_cat = int(profit_margin_cat) - int(overall_avg_profit_margin)
 else:
     profit_margin_cat = 0  # Or any other default value
 
@@ -90,11 +92,11 @@ if not filtered_aggregated_data.empty:
    st.line_chart(filtered_aggregated_data)
    col1.metric("Total Sales ($)", round(total_sales_subcat, 1))
    col2.metric("Total Profit ($)", round(total_profit_subcat, 1))
-   col3.metric("Overall Profit Margin (%)", round(profit_margin_subcat, 1), delta = round(overall_avg_profit_margin, 1))
+   col3.metric("Overall Profit Margin (%)", round(profit_margin_subcat, 1), delta = round(delta_subcat, 1))
 else:
    st.dataframe(filtered_aggregated_data_onlycat)
    st.write('Line chart for selected Category and All Sub_Categories:')
    st.line_chart(filtered_aggregated_data_onlycat)
    col1.metric("Total Sales ($)", round(total_sales_cat, 1))
    col2.metric("Total Profit ($)", round(total_profit_cat, 1))
-   col3.metric("Overall Profit Margin (%)", round(profit_margin_cat, 1), delta = round(overall_avg_profit_margin, 1))
+   col3.metric("Overall Profit Margin (%)", round(profit_margin_cat, 1), delta = round(delta_cat, 1))
