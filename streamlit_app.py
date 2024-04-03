@@ -99,7 +99,7 @@ if not filtered_aggregated_data.empty:
 else:
    col1.metric("Total Sales per Selection ($)", round(total_sales_cat, 2))
    col2.metric("Total Profit per Selection ($)", round(total_profit_cat, 2))
-   st.metric("Profit Margin per Selection (%) / Difference with Overall Profit Margin", round(profit_margin_cat, 2), delta = round(delta_cat, 2))
+   st.metric("Profit Margin per Selection (%) / Difference with Overall Profit Margin (%)", round(profit_margin_cat, 2), delta = round(delta_cat, 2))
    st.dataframe(filtered_aggregated_data_onlycat)
    st.write('Line chart for selected Category and All Sub_Categories:')
    st.line_chart(filtered_aggregated_data_onlycat)
