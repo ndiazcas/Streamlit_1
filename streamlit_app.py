@@ -40,7 +40,6 @@ st.write("## App Assignment")
 
 # Create a dropdown for selecting a category
 option = st.selectbox('Select a category:', ['All'] + df['Category'].unique().tolist(), index=0)
-st.write('You selected:', option)
 
 # Filter df based on the selected category
 if option == 'All':
