@@ -35,6 +35,8 @@ st.write("### (4) show three metrics (https://docs.streamlit.io/library/api-refe
 st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
 
 
+st.write("## App Assignment")
+
 # Create a dropdown for selecting a category
 option = st.selectbox('Select a category:', ['All'] + df['Category'].unique().tolist(), index=0)
 st.write('You selected:', option)
